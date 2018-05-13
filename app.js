@@ -8,8 +8,8 @@ const querystring = require('querystring');
 
 let htmlPath = path.join(__dirname, 'index.html');
 // file for the post req data
-let postFileName = 'log_file.txt';
-const logFilePath = path.join(__dirname, postFileName);
+let postFileName = 'log_post_file.txt';
+const postFilePath = path.join(__dirname, postFileName);
 
 // save data in postfilename via streams
 let logging = (file, data) => {
@@ -22,7 +22,7 @@ let logging = (file, data) => {
 if(fs.existsSync(postFilePath)){
     console.log('Log file is ready.');
 } else{
-    logging(logFileName, 'Start of the log file:\n');
+    logging(postFileName, '');
 }
 
 // allowed content types for post reqs
@@ -48,10 +48,22 @@ server.on('request', (req, res)=>{
             }
         });
     } else if(req.method === 'POST'){
+        let data = '';
         // save data in a file, whem got post req (file is new on every server start)
-        if(allowedContentTypes.includes(re.headers['content-type'])){
-            
+        if(allowedContentTypes.includes(req.headers['content-type'])){
+            req.on('data', (chunk)=>{
+                data += chunk;
+            });
+            req.on('end', ()=>{
+                let obj;
+                if(req.headers['content-type'] === "application/json") obj = JSON.parse(data);
+                else obj = querystring.parse(data);
+                logging(postFileName, `${JSON.stringify(obj)}\n`);
+                res.end();
+            });
         }
+    } else if(req.method === "GET" && req.url === "postdata"){
+        
     } else{
         res.writeHead(404);
         req.end('Not found!');
