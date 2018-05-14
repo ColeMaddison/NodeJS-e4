@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/ColeMaddison/NodeJS-e4/issues"
   },
-  "homepage": "https://github.com/ColeMaddison/NodeJS-e4#readme"
+  "homepage": "https://github.com/ColeMaddison/NodeJS-e4#readme",
+  "devDependencies": {
+    "nodemon": "^1.17.4"
+  }
 }

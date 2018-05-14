@@ -41,15 +41,12 @@ server.on('request', (req, res)=>{
     // send html page when get req
     if(req.method === 'GET' && reqParams.pathname === '/'){
         res.writeHead(200, {'Content-type': 'text/html'});
-        fs.readFile(htmlPath, (err, data)=>{
-            if(err){
-                res.writeHead(404);
-                res.write('Not found!');
-            } else {
-                res.write(data);
-                res.end();
-            }
-        });
+
+        // manage index file read with streams
+        let indexRead = fs.createReadStream(htmlPath);
+        indexRead.pipe(res);
+
+
     } else if(req.method === 'POST'){
         let data = '';
         // save data in a file, whem got post req (file is new on every server start)
@@ -61,13 +58,22 @@ server.on('request', (req, res)=>{
                 let obj;
                 if(req.headers['content-type'] === "application/json") obj = JSON.parse(data);
                 else obj = querystring.parse(data);
-                logging(postFileName, `${JSON.stringify(obj)}\n`);
+                // adding data to file without the curly braces of json
+                let objStr = JSON.stringify(obj);
+                objStr = objStr.slice(1,objStr.length-1);
+
+                logging(postFileName, `\n${objStr}`);
                 res.end();
             });
         }
     } else if(req.method === "GET" && reqParams.pathname === "/postdata"){
-        if(reqParams.query.type === 'json') console.log('OK!!1');
-        res.end();
+        if(reqParams.query.type === 'json') {
+            let readPostFile = fs.createReadStream(postFileName);
+            res.end();
+        } else {
+            res.writeHead(200);
+            res.end('Specify query');
+        }
     } else{
         res.writeHead(404);
         res.end('Not found!');
