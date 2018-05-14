@@ -36,8 +36,10 @@ const PORT = process.env.PORT || 3000;
 const server = http.createServer();
 
 server.on('request', (req, res)=>{
+    //get req params of the url
+    const reqParams = url.parse(req.url, true);
     // send html page when get req
-    if(req.method === 'GET' && req.url === '/'){
+    if(req.method === 'GET' && reqParams.pathname === '/'){
         res.writeHead(200, {'Content-type': 'text/html'});
         fs.readFile(htmlPath, (err, data)=>{
             if(err){
@@ -45,6 +47,7 @@ server.on('request', (req, res)=>{
                 res.write('Not found!');
             } else {
                 res.write(data);
+                res.end();
             }
         });
     } else if(req.method === 'POST'){
@@ -62,11 +65,12 @@ server.on('request', (req, res)=>{
                 res.end();
             });
         }
-    } else if(req.method === "GET" && req.url === "postdata"){
-        
+    } else if(req.method === "GET" && reqParams.pathname === "/postdata"){
+        if(reqParams.query.type === 'json') console.log('OK!!1');
+        res.end();
     } else{
         res.writeHead(404);
-        req.end('Not found!');
+        res.end('Not found!');
     }
 });
 
