@@ -56,24 +56,29 @@ server.on('request', (req, res)=>{
             });
             req.on('end', ()=>{
                 let obj;
+                console.log(data);
                 if(req.headers['content-type'] === "application/json") obj = JSON.parse(data);
                 else obj = querystring.parse(data);
-                // adding data to file without the curly braces of json
-                let objStr = JSON.stringify(obj);
-                objStr = objStr.slice(1,objStr.length-1);
 
-                logging(postFileName, `\n${objStr}`);
-                res.end();
+                logging(postFileName, `\n${JSON.stringify(obj)}`);
+                res.end("Data saved");
             });
         }
     } else if(req.method === "GET" && reqParams.pathname === "/postdata"){
-        if(reqParams.query.type === 'json') {
-            let readPostFile = fs.createReadStream(postFileName);
-            res.end();
-        } else {
-            res.writeHead(200);
-            res.end('Specify query');
-        }
+        let strToBeSent = {};
+        let rs = fs.readFile(postFileName, 'utf8', (err, data) => {
+            if(err) throw err;
+            strToBeSent.data = [];
+            let buff = data.slice(1).split('\n')
+
+            buff.forEach(item => {
+                // convert str to json and push to arr to send in res
+                console.log(strToBeSent.data.push(JSON.parse(item)));
+            });
+
+            res.writeHead(200, {"Content-Type": "application/json"});
+            res.end(JSON.stringify(strToBeSent));
+        });
     } else{
         res.writeHead(404);
         res.end('Not found!');
