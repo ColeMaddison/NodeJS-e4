@@ -1,0 +1,51 @@
+Start of the log file:
+
+Sending start time: 16:27:08 2018-5-16
+
+Sending start time: 16:28:57 2018-5-16
+Sending finish time: 16:28:57 2018-5-16
+
+Sending start time: 16:46:27 2018-5-16
+Sending finish time: 16:46:27 2018-5-16
+Sending took NaNs. and finished with status code 200
+
+
+Sending start time: 16:47:21 2018-5-16
+Sending finish time: 16:47:21 2018-5-16
+Sending took 0.399s. and finished with status code 200
+
+
+Sending start time: 16:47:33 2018-5-16
+Sending finish time: 16:47:33 2018-5-16
+Sending took 0.255s. and finished with status code 200
+
+
+Sending start time: 16:47:37 2018-5-16
+Sending finish time: 16:47:37 2018-5-16
+Sending took 0.121s. and finished with status code 200
+
+
+Sending start time: 16:49:47 2018-5-16
+Sending finish time: 16:49:47 2018-5-16
+Sending took 0.717s. and finished with status code 200
+
+
+Sending start time: 16:50:58 2018-5-16
+Sending finish time: 16:50:58 2018-5-16
+Sending took 0.556s. and finished with status code 200
+
+
+Sending start time: 16:52:00 2018-5-16
+Sending finish time: 16:52:00 2018-5-16
+Sending took 0.775s. and finished with status code 200
+
+
+Sending start time: 16:53:31 2018-5-16
+Sending finish time: 16:53:32 2018-5-16
+Sending took -0.023s. and finished with status code 200 from user-agent: undefined
+
+
+Sending start time: 16:54:05 2018-5-16
+Sending finish time: 16:54:05 2018-5-16
+Sending took 0.119s. and finished with status code 200 from user-agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:59.0) Gecko/20100101 Firefox/59.0
+
