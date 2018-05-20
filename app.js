@@ -71,7 +71,7 @@ server.on('request', (req, res)=>{
     let origin = reqParams.pathname;
 
     // log req start to log file
-    logging(logFileName, `\nSending start time: ${connectionInfo.startDate.toLocaleTimeString()} ${connectionInfo.startDate.toLocaleDateString()}\n`);
+    // logging(logFileName, `\nSending start time: ${connectionInfo.startDate.toLocaleTimeString()} ${connectionInfo.startDate.toLocaleDateString()}\n`);
 
     // send html page when get req
     if(req.method === 'GET' && origin === '/'){
@@ -94,8 +94,8 @@ server.on('request', (req, res)=>{
                 if(req.headers['content-type'] === "application/json") obj = JSON.parse(data);
                 else obj = querystring.parse(data);
 
-                logging(postFileName, `\n${JSON.stringify(obj)}`);
                 res.end("Data saved");
+                logging(postFileName, `\n${JSON.stringify(obj)}`);
             });
         }
     } else if(req.method === "GET" && origin === "/postdata"){
@@ -129,7 +129,7 @@ server.on('request', (req, res)=>{
     let mom2 = new Date().getMilliseconds();
     connectionInfo.timeTaken = mom2 - mom1;
 
-    logging(logFileName, `Sending finish time: ${connectionInfo.finishDate.toLocaleTimeString()} ${connectionInfo.finishDate.toLocaleDateString()}\n`);
+    logging(logFileName, `\nSending start time: ${connectionInfo.startDate.toLocaleTimeString()} ${connectionInfo.startDate.toLocaleDateString()}\n \nSending finish time: ${connectionInfo.finishDate.toLocaleTimeString()} ${connectionInfo.finishDate.toLocaleDateString()}\n`);
 
     logging(logFileName, `Sending took ${connectionInfo.timeTaken/1000}s. and finished with status code ${res.statusCode} from user-agent: ${connectionInfo.userAgent}\n\n`);
 });

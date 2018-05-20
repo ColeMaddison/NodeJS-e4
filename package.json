@@ -18,10 +18,10 @@
   },
   "homepage": "https://github.com/ColeMaddison/NodeJS-e4#readme",
   "devDependencies": {
-    "mime-types": "^2.1.18",
     "nodemon": "^1.17.4"
   },
   "dependencies": {
+    "mime-types": "^2.1.18",
     "moment": "^2.22.1"
   }
 }
